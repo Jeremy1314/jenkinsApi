@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>git@10.20.88.200:MCloud-Previous/Platform-iOS.git</url>
+        <credentialsId>655e21c8-aef2-480e-8b88-708dd34b6a80</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>false</shallow>
+        <noTags>false</noTags>
+        <reference></reference>
+        <timeout>30</timeout>
+      </hudson.plugins.git.extensions.impl.CloneOption>
+    </extensions>
+  </scm>
+  <assignedNode>Mac</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>123456</authToken>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>rm -r -f /Users/qxb-mac/Library/Developer/Xcode/DerivedData/*
+rm -r -f /Work/GitLab/MCloud-Previous/Platform-iOS/MCloud/*
+rm -r -f /Work/GitLab/MCloud-Previous/Platform-iOS/MCloud/src
+cp -rf /Work/workspace/iOS-MCloud2.4\(RC\)/* /Work/GitLab/MCloud-Previous/Platform-iOS/MCloud/</command>
+    </hudson.tasks.Shell>
+    <au.com.rayh.XCodeBuilder plugin="xcode-plugin@1.4.9">
+      <cleanBeforeBuild>true</cleanBeforeBuild>
+      <cleanTestReports>false</cleanTestReports>
+      <configuration>Release</configuration>
+      <target>Iphone-MobileEngine</target>
+      <sdk>iphoneos9.2</sdk>
+      <symRoot></symRoot>
+      <configurationBuildDir></configurationBuildDir>
+      <xcodeProjectPath></xcodeProjectPath>
+      <xcodeProjectFile></xcodeProjectFile>
+      <xcodebuildArguments></xcodebuildArguments>
+      <xcodeSchema>Iphone-MobileEngine</xcodeSchema>
+      <xcodeWorkspaceFile>/Work/GitLab/MCloud-Previous/Platform-iOS/MCloud/src/MobileEngine_Workspace/com.digiwin.Mobile.Hybridizing</xcodeWorkspaceFile>
+      <embeddedProfileFile>/Users/qxb-mac/Library/MobileDevice/Provisioning Profiles/AppEngine_House.mobileprovision</embeddedProfileFile>
+      <cfBundleVersionValue></cfBundleVersionValue>
+      <cfBundleShortVersionStringValue></cfBundleShortVersionStringValue>
+      <buildIpa>false</buildIpa>
+      <generateArchive>false</generateArchive>
+      <unlockKeychain>false</unlockKeychain>
+      <keychainName>none (specify one below)</keychainName>
+      <keychainPath></keychainPath>
+      <keychainPwd></keychainPwd>
+      <codeSigningIdentity>iPhone Distribution: DATA SYSTEMS CONSULTING CO., LTD</codeSigningIdentity>
+      <allowFailingBuildResults>false</allowFailingBuildResults>
+      <ipaName></ipaName>
+      <ipaOutputDirectory></ipaOutputDirectory>
+      <provideApplicationVersion>false</provideApplicationVersion>
+      <changeBundleID>true</changeBundleID>
+      <bundleID>com.digiwin.DigiwinMobileEngine.Enterprise</bundleID>
+      <bundleIDInfoPlistPath>/Work/GitLab/MCloud-Previous/Platform-iOS/MCloud/src/MobileEngine_Workspace/MobileEngine_v2.3/Iphone-MobileEngine/Iphone-MobileEngine-Info.plist</bundleIDInfoPlistPath>
+      <interpretTargetAsRegEx>false</interpretTargetAsRegEx>
+      <ipaManifestPlistUrl></ipaManifestPlistUrl>
+    </au.com.rayh.XCodeBuilder>
+    <hudson.tasks.Shell>
+      <command>if [ -f /Work/workspace/iOS-MCloud/*.ipa ]; then 
+	rm /Work/workspace/iOS-MCloud/*.ipa 
+fi
+mkdir -p /Work/workspace/iOS-MCloud2.4\(RC\)/
+xcrun -sdk iphoneos PackageApplication -v /Users/qxb-mac/Library/Developer/Xcode/DerivedData/com.digiwin.Mobile.Hybridizing-elupbyppgmnsojgprybkatuogler/Build/Products/Release-iphoneos/Iphone-MobileEngine.app -o /Work/workspace/iOS-MCloud2.4\(RC\)/iphone-MB-D2.4-${GIT_COMMIT:0:6}-$BUILD_TIMESTAMP.ipa
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
